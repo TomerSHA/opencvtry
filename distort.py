@@ -3,6 +3,8 @@ import cv2, random
 from itertools import cycle
 
 
+#Distortion types
+
 def colorGray(frame):
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -25,18 +27,19 @@ def tearY(frame):
     frame[:,blockx:blockx+block,:] = 0
     return frame
 
+#array to hold all the distortion types, colored is entered more times for more clear image
 
-#funcs = [tearY]
 funcs = [colored,colored,colored,colorGray,colorYellow, tearY,blacked]
 
 def main():
     cap = cv2.VideoCapture(0)
     disto = cycle(funcs)
+
     time = 0
     while(True):
         # Capture frame-by-frame
         ret, frame = cap.read()
-        if time % 3 == 0:
+        if time % 3 == 0:       #chooses how long to change the distortion
             distfunc = disto.next()
         frm = distfunc(frame)
 
@@ -47,11 +50,11 @@ def main():
         cv2.imshow('frame',frm)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        time += int(random.random() * 10)
+        time += int(random.random() * 10)       #add a random element to the distortion
         print time
 
         if time / 50  > 1:
-            disto = cycle(funcs)
+            disto = cycle(funcs)                ## reshuffle the effects so it won't repeat so much.
             time = 0
 
     # When everything done, release the capture
