@@ -51,7 +51,6 @@ def main():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         time += int(random.random() * 10)       #add a random element to the distortion
-        print time
 
         if time / 50  > 1:
             disto = cycle(funcs)                ## reshuffle the effects so it won't repeat so much.
