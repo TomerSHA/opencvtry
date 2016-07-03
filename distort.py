@@ -27,9 +27,14 @@ def tearY(frame):
     frame[:,blockx:blockx+block,:] = 0
     return frame
 
-#array to hold all the distortion types, colored is entered more times for more clear image
+def toto(frame):
+    size = frame.shape
+    frame[0:size[0]/2,0:size[1]/2,:] = frame[size[0]/2:size[0],size[1]/2:size[1],:]
+    return frame
 
-funcs = [colored,colored,colored,colorGray,colorYellow, tearY,blacked]
+#array to hold all the distortion types, colored is entered more times for more clear image
+funcs = [toto]
+#funcs = [colored,colored,colored,colorGray,colorYellow, tearY,blacked]
 
 def main():
     cap = cv2.VideoCapture(0)
